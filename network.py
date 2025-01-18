@@ -238,14 +238,14 @@ else:
     torch.save({'trainDataset': trainDataset,
                 'valDataset': valDataset}, "./datasets.pt")
 
-batch_size = 8
+batch_size = 16
 trainDataloader = DataLoader(trainDataset, batch_size=batch_size, shuffle=True, num_workers=8)
 
 model = UNetUpscaler()
 if torch.cuda.is_available():
     model.cuda()
     
-learningRate = 0.0001/batch_size
+learningRate = 0.00001 * np.sqrt(batch_size)
 num_epochs = 100
 
 criterion = torch.nn.MSELoss()
